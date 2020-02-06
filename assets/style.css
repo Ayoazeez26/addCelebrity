@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #FFF6F7;
+}
+
+#container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+header > img {
+    width: 64px;
+    height: 32px;
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+header + h1 {
+    margin: 0 auto;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.card {
+    width: 30%;
+    height: auto;
+    background-color: #FFF;
+    border: 1px solid whitesmoke;
+    padding-bottom: 15px;
+}
+
+.card > img {
+    width: 100%;
+}
+
+.card-detail {
+    width: 90%;
+    margin: 0 auto;
+}
