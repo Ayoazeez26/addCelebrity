@@ -5,28 +5,35 @@ body {
     background-color: #FFF6F7;
 }
 
-#container {
-    width: 80%;
-    margin: 0 auto;
-}
-
-header {
+.header-container {
     background-color: white;
     display: flex;
     justify-content: space-between;
 }
 
-header > img {
+#container {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+}
+
+#container > img {
     width: 64px;
     height: 32px;
     margin: 15px 0;
     cursor: pointer;
 }
 
-header + h1 {
+#container h1 {
     margin: 0 auto;
     text-align: center;
-    margin: 20px 0;
+    padding: 20px 0;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .card {
@@ -35,6 +42,7 @@ header + h1 {
     background-color: #FFF;
     border: 1px solid whitesmoke;
     padding-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .card > img {
@@ -44,4 +52,55 @@ header + h1 {
 .card-detail {
     width: 90%;
     margin: 0 auto;
+}
+
+.cart-item {
+    background-color: #FFF;
+    width: 300px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0 auto;
+}
+
+.headers {
+    display: flex;
+    justify-content: space-around;
+}
+
+.headers h4 {
+    margin: 0;
+    padding: 10px 0;
+}
+
+.cart-item button,
+.card-detail button {
+    width: 100%;
+    padding: 10px 15px;
+    text-align: center;
+    border: 1px solid #FEDEDE;
+    background-color: #FFF;
+    cursor: pointer;
+}
+
+.cart-item button:hover,
+.card-detail button:hover {
+    background-color: #FEDEDE;
+}
+
+.cart-list {
+    display: flex;
+    border-top: 1px solid #EFEFEE;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#container-tight {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.cart-list h5 {
+    width: 25%;
 }
