@@ -104,3 +104,14 @@ body {
 .cart-list h5 {
     width: 25%;
 }
+
+.cart-list a {
+    text-decoration: none;
+    color: #FFF;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #7A80EF;
+    background-color: #7A80EF;
+    border-radius: 50%;
+    text-align: center;
+}
