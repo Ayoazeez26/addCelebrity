@@ -12,7 +12,7 @@
     <header>
         <div id="container" class="header-container">
             <img src="assets/img/silhouette.png" alt="Celebrity Silhouette">
-            <img src="assets/img/shopping-cart.png" alt="View Cart">
+            <img src="assets/img/shopping-cart.png" class="show-list" alt="View List" onclick="removeCeleb()">
         </div>
     </header>
     <div id="container">
@@ -25,13 +25,15 @@
                     <h4>Name</h4>
                     <h4>Age</h4>
                 </div>
-                <div class="cart-list">
-                    <img src="assets/img/missandei.jpg" alt="Missandei" width="108px" height="auto">
-                    <h5>Missandei from GOT</h5>
-                    <p>30</p>
-                    <a href="#">X</a>
+                <div class="celeb-list">
+                    <div class="celeb-card">
+                        <img src="assets/img/missandei.jpg" alt="Missandei" class="celeb-img">
+                        <h5>Missandei from GOT</h5>
+                        <p>30</p>
+                        <a href="#">X</a>
+                    </div>
                 </div>
-                <button>Clear List</button>
+                <button class="clear-list">Clear List</button>
             </div>
         </div>
 
