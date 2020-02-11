@@ -1,131 +1,136 @@
 const cartItem = document.querySelector('.cart-item');
-const celebList = document.querySelector('.celeb-list');
-const headerContainer = document.querySelector('.header-container');
+// const celebList = document.querySelector('.celeb-list');
+// const headerContainer = document.querySelector('.header-container');
 
-// add celebrity to list
+const celebrities = document.querySelector('.detail-row'),
+      celebList = document.querySelector('.celeb-list');
 
-document.querySelectorAll('#addButton').forEach(item => {
-    item.addEventListener('click', event => {
-      const celebList = document.querySelector('.celeb-list');
+loadEventListeners();
 
-      const celebCard = document.createElement('div');
+function loadEventListeners() {
+    celebrities.addEventListener('click', addACeleb);
+    document.addEventListener('DOMContentLoaded', getFromLocalStorage);
+}
 
-      celebCard.classList.add('celeb-card');
+function addACeleb(e) {
+    e.preventDefault();
 
-      const celebPic = document.createElement('img');
+    if(e.target.classList.contains('addButton')) {
+        const celeb = e.target.parentElement.parentElement;
 
-      celebPic.src = event.target.parentElement.parentElement.children[0].src;
+        getCelebInfo(celeb);
+    }
+}
 
-      celebPic.alt = event.target.parentElement.parentElement.children[0].alt;
+function getCelebInfo(celeb) {
+    const celebInfo = {
+        image: celeb.querySelector('img').src,
+        title: celeb.querySelector('h4').textContent,
+        age: celeb.querySelector('span').textContent,
+        id: celeb.querySelector('button').getAttribute('data-id')
+    }
+    addIntoList(celebInfo);
+}
 
-      celebPic.classList.add('celeb-img');
+function addIntoList(celeb) {
 
-      const celebName = document.createElement('h5');
+    const row = document.createElement('div');
+    row.classList.add('celeb-card');
 
-      celebName.textContent = event.target.parentElement.parentElement.children[1].children[0].textContent;
+    row.innerHTML = `
+        <img src="${celeb.image}" class="celeb-img">
+        <h5>${celeb.title}</h5>
+        <p>${celeb.age}</p>
+        <a href="#" class="cancel-celeb" data-id="${celeb.id}">X</a>
+    `;
 
-      const celebAge = document.createElement('p');
-      
-      celebAge.textContent = event.target.parentElement.parentElement.children[1].children[2].textContent;
+    celebList.appendChild(row);
 
-      const cancelCeleb = document.createElement('a');
+    saveIntoStorage(celeb);
 
-      cancelCeleb.textContent = 'X';
+}
 
-      cancelCeleb.classList.add('cancel-celeb');
+function saveIntoStorage(celeb) {
+    let celebs = getCelebFromStorage();
 
-      celebCard.appendChild(celebPic);
-      celebCard.appendChild(celebName);
-      celebCard.appendChild(celebAge);
-      celebCard.appendChild(cancelCeleb);
+    celebs.push(celeb);
 
-      celebList.appendChild(celebCard);
-    })
-  })
+    localStorage.setItem('celebs', JSON.stringify(celebs));
+}
+
+function getCelebFromStorage() {
+    let celebs;
+
+    if(localStorage.getItem('celebs') === null) {
+        celebs = [];
+    } else {
+        celebs = JSON.parse(localStorage.getItem('celebs'));
+    }
+    return celebs;
+}
 
 //   remove celebrity from list and clear the whole list
 
 celebList.addEventListener('click', e => {
+    let celeb, celebId;
+
     if(e.target.classList.contains('cancel-celeb')) {
         e.target.parentElement.remove();
+        celeb = e.target.parentElement;
+        celebId = celeb.querySelector('a').getAttribute('data-id');
     }
+
+    removeCelebLocalStorage(celebId);
+
 });
+
+function removeCelebLocalStorage(id) {
+    let celebsLS = getCelebFromStorage();
+
+    celebsLS.forEach(function(celebLS, index) {
+        if(celebLS.id === id) {
+            celebsLS.splice(index, 1);
+        }
+    });
+
+    localStorage.setItem('celebs', JSON.stringify(celebsLS));
+}
 
 // clear list
 
-celebList.addEventListener('click', e => {
+cartItem.addEventListener('click', e => {
     if(e.target.classList.contains('clear-list')) {
-        console.log('this should clear the list');
-        // e.target.parentElement.children[1].remove();
+        e.target.parentElement.children[1].remove();
     }
+
+    clearLocalStorage();
 });
 
+function clearLocalStorage() {
+    localStorage.clear();
+}
 
-// display list on click
+
+// // display list on click
 
 function removeCeleb() {
     cartItem.classList.toggle('cart-display');
 }
 
-// add list to local storage
+function getFromLocalStorage() {
+    let celebsLS = getCelebFromStorage();
 
-function addCeleb() {
-
-}
-
-// load from local storage
-
-function loadCeleb() {
-    let celeb;
-    const celebLS = localStorage.getItem('addedCeleb');
-    if(celebLS === null) {
-        celeb = [];
-    } else {
-        celeb = JSON.parse(celebLS);
-    }
-    return celeb;
-}
-
-// load celebs on-page-load
-document.addEventListener('DOMContentLoaded', celebOnLoad);
-
-function celebOnLoad() {
-    let celebs = loadCeleb();
-
-    celebs.forEach(function(event) {
-        const celebList = document.querySelector('.celeb-list');
-
-        const celebCard = document.createElement('div');
-  
-        celebCard.classList.add('celeb-card');
-  
-        const celebPic = document.createElement('img');
-  
-        celebPic.src = event.target.parentElement.parentElement.children[0].src;
-  
-        celebPic.alt = event.target.parentElement.parentElement.children[0].alt;
-  
-        celebPic.classList.add('celeb-img');
-  
-        const celebName = document.createElement('h5');
-  
-        celebName.textContent = event.target.parentElement.parentElement.children[1].children[0].textContent;
-  
-        const celebAge = document.createElement('p');
+    celebsLS.forEach(function(celeb) {
+        const row = document.createElement('div');
+        row.classList.add('celeb-card');
         
-        celebAge.textContent = event.target.parentElement.parentElement.children[1].children[2].textContent;
-  
-        const cancelCeleb = document.createElement('a');
-  
-        cancelCeleb.textContent = 'X';
-  
-        cancelCeleb.classList.add('cancel-celeb');
-  
-        celebCard.appendChild(celebPic);
-        celebCard.appendChild(celebName);
-        celebCard.appendChild(celebAge);
-        celebCard.appendChild(cancelCeleb);
-  
-        celebList.appendChild(celebCard);
-    })
+        row.innerHTML = `
+        <img src="${celeb.image}" class="celeb-img">
+        <h5>${celeb.title}</h5>
+        <p>${celeb.age}</p>
+        <a href="#" class="cancel-celeb" data-id="${celeb.id}">X</a>
+        `;
+
+        celebList.appendChild(row);
+    });
 }
