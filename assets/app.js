@@ -1,3 +1,75 @@
+class Celeb {
+    constructor(image, title, age, id) {
+        this.image = image;
+        this.title = title;
+        this.age = age;
+        this.id = id;
+    }
+}
+
+class UI {
+    addCelebToCart(celeb) {
+        const cartBody = document.getElementById('cart-body');
+        const row = document.createElement('tr');
+        row.innerHTML = 
+            `
+                <td><img src="${celeb.image}" class="cart-img"</td>
+                <td>${celeb.title}</td>
+                <td>${celeb.age}</td>
+                <td><a href="#" class="delete">X</td>
+            `;
+        cartBody.appendChild(row);
+    }
+        
+    showAlert(message, className) {
+        // Create div
+        const div = document.createElement('div');
+        // Add classes
+        div.className = `alert ${className}`;
+        // Add text
+        div.appendChild(document.createTextNode(message));
+        // Get parent
+        const container = document.querySelector('#container-body');
+        // Get form
+        const row = document.querySelector('.only-heading');
+        // Insert alert
+        row.insertAdjacentElement('afterBegin', div);
+
+        // Timeout after 3 sec
+        setTimeout(function() {
+            document.querySelector('.alert').remove();
+        }, 3000);
+    }
+
+}
+
+document.querySelector('.detail-row').addEventListener('click', (e) => {
+    const ui = new UI();
+    let img, title, age, id;
+    if(e.target.classList.contains('addButton')) {
+        // Get Card Values
+        img = e.target.parentElement.parentElement.children[0].src;
+        title = e.target.parentElement.children[0].textContent;
+        age = e.target.parentElement.children[2].textContent;
+        id = e.target.parentElement.children[3].attributes[2].value;
+
+        // Instantiate new celeb
+        const celeb = new Celeb(img, title, age, id);
+        ui.addCelebToCart(celeb);
+        ui.showAlert('Celebrity Added!', 'success');
+
+    }
+    
+    e.preventDefault();
+});
+
+document.querySelector('.show-list').addEventListener('click', (e) => {
+    document.querySelector('.cart-item').classList.toggle('cart-display');
+
+    e.preventDefault();
+})
+
+/*
 const cartItem = document.querySelector('.cart-item');
 // const celebList = document.querySelector('.celeb-list');
 // const headerContainer = document.querySelector('.header-container');
@@ -10,6 +82,7 @@ loadEventListeners();
 function loadEventListeners() {
     celebrities.addEventListener('click', addACeleb);
     document.addEventListener('DOMContentLoaded', getFromLocalStorage);
+    celebList.addEventListener('click', removeCelebrity)
 }
 
 function addACeleb(e) {
@@ -71,7 +144,7 @@ function getCelebFromStorage() {
 
 //   remove celebrity from list and clear the whole list
 
-celebList.addEventListener('click', e => {
+function removeCelebrity(e) {
     let celeb, celebId;
 
     if(e.target.classList.contains('cancel-celeb')) {
@@ -82,7 +155,7 @@ celebList.addEventListener('click', e => {
 
     removeCelebLocalStorage(celebId);
 
-});
+}
 
 function removeCelebLocalStorage(id) {
     let celebsLS = getCelebFromStorage();
@@ -134,3 +207,4 @@ function getFromLocalStorage() {
         celebList.appendChild(row);
     });
 }
+*/

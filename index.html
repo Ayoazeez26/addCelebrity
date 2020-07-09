@@ -8,91 +8,92 @@
     <title>Add Courses</title>
 </head>
 <body>
-    
-    <header>
-        <div id="container" class="header-container">
-            <img src="assets/img/silhouette.png" alt="Celebrity Silhouette">
-            <img src="assets/img/shopping-cart.png" class="show-list" alt="View List" onclick="removeCeleb()">
-        </div>
-    </header>
     <div id="container">
-
-        <!-- Cart Items -->
-        <div class="cart-item">
-            <div id="container-tight">
-                <div class="headers">
-                    <h4>Image</h4>
-                    <h4>Name</h4>
-                    <h4>Age</h4>
+        <div class="header-container">
+            <img src="assets/img/silhouette.png" alt="Celebrity Silhouette">
+            <img src="assets/img/shopping-cart.png" class="show-list" alt="View List">
+        </div>
+        <div id="container-body">
+            <!-- Cart Items -->
+            <div class="cart-item">
+                <div id="container-tight">
+                    <table class="headers">
+                        <thead>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th></th>
+                        </thead>
+                        <tbody id="cart-body"></tbody>
+                    </table>
+                    <div class="celeb-list">
+                    </div>
+                    <button type="button" class="clear-list">Clear List</button>
                 </div>
-                <div class="celeb-list">
+            </div>
+    
+    
+    
+            <h1 class="only-heading">Choose Celebrity</h1>
+            <div id="row" class="detail-row">
+                <div class="card">
+                    <img src="assets/img/missandei.jpg" alt="Missandei">
+                    <div class="card-detail">
+                        <h4>Missandei from GOT</h4>
+                        <p>Nathalie Emmanuel</p>
+                        <span>30</span>
+                        <button type="button" class="addButton" data-id="1">Add</button>
+                    </div>
                 </div>
-                <button class="clear-list">Clear List</button>
+                <div class="card">
+                    <img src="assets/img/kehlani.png" alt="Missandei">
+                    <div class="card-detail">
+                        <h4>Kehlani</h4>
+                        <p>Kehlani Ashley Parrish</p>
+                        <span>24</span>
+                        <button type="button" class="addButton" data-id="2">Add</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="assets/img/bobbie-brown.jpg" alt="Missandei">
+                    <div class="card-detail">
+                        <h4>L from Stranger Things</h4>
+                        <p>Millie Bobbie Brown</p>
+                        <span>16</span>
+                        <button type="button" class="addButton" data-id="3">Add</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="assets/img/adesuwa-etomi.png" alt="Missandei">
+                    <div class="card-detail">
+                        <h4>Adesua Etomi</h4>
+                        <p>Adesua Etomi</p>
+                        <span>31</span>
+                        <button type="button" class="addButton" data-id="4">Add</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="assets/img/bebe-rexha.png" alt="Missandei">
+                    <div class="card-detail">
+                        <h4>Bebe Rexha</h4>
+                        <p>Bleta Rexha</p>
+                        <span>30</span>
+                        <button type="button" class="addButton" data-id="5">Add</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="assets/img/danaerys.jpg" alt="Missandei">
+                    <div class="card-detail">
+                        <h4>Danaerys from GOT</h4>
+                        <p>Emilia Clarke</p>
+                        <span>33</span>
+                        <button type="button" class="addButton" data-id="6">Add</button>
+                    </div>
+                </div>
             </div>
         </div>
-
-
-
-        <h1>Choose Celebrity</h1>
-        <div id="row" class="detail-row">
-            <div class="card">
-                <img src="assets/img/missandei.jpg" alt="Missandei">
-                <div class="card-detail">
-                    <h4>Missandei from GOT</h4>
-                    <p>Nathalie Emmanuel</p>
-                    <span>30</span>
-                    <button id="addButton" class="addButton" data-id="1">Add</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/img/kehlani.png" alt="Missandei">
-                <div class="card-detail">
-                    <h4>Kehlani</h4>
-                    <p>Kehlani Ashley Parrish</p>
-                    <span>24</span>
-                    <button id="addButton" class="addButton" data-id="2">Add</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/img/bobbie-brown.jpg" alt="Missandei">
-                <div class="card-detail">
-                    <h4>L from Stranger Things</h4>
-                    <p>Millie Bobbie Brown</p>
-                    <span>16</span>
-                    <button id="addButton" class="addButton" data-id="3">Add</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/img/adesuwa-etomi.png" alt="Missandei">
-                <div class="card-detail">
-                    <h4>Adesua Etomi</h4>
-                    <p>Adesua Etomi</p>
-                    <span>31</span>
-                    <button id="addButton" class="addButton" data-id="4">Add</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/img/bebe-rexha.png" alt="Missandei">
-                <div class="card-detail">
-                    <h4>Bebe Rexha</h4>
-                    <p>Bleta Rexha</p>
-                    <span>30</span>
-                    <button id="addButton" class="addButton" data-id="5">Add</button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/img/danaerys.jpg" alt="Missandei">
-                <div class="card-detail">
-                    <h4>Danaerys from GOT</h4>
-                    <p>Emilia Clarke</p>
-                    <span>33</span>
-                    <button id="addButton" class="addButton" data-id="6">Add</button>
-                </div>
-            </div>
-        </div>
+    
     </div>
-
-
 
     <script src="assets/app.js"></script>
 </body>
