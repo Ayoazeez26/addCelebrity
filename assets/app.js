@@ -16,7 +16,7 @@ class UI {
                 <td><img src="${celeb.image}" class="cart-img"</td>
                 <td>${celeb.title}</td>
                 <td>${celeb.age}</td>
-                <td><a href="#" class="delete">X</td>
+                <td><a href="#" class="delete" data-id="${celeb.id}">X</td>
             `;
         cartBody.appendChild(row);
     }
@@ -35,13 +35,66 @@ class UI {
         // Insert alert
         row.insertAdjacentElement('afterBegin', div);
 
-        // Timeout after 3 sec
+        // Timeout after 1 sec
         setTimeout(function() {
             document.querySelector('.alert').remove();
-        }, 3000);
+        }, 1000);
+    }
+
+    deleteItem(item) {
+        item.parentElement.parentElement.remove();
+    }
+
+    clearCart(cart) {
+        cart.parentElement.children[0].children[1].remove();
     }
 
 }
+
+class Store {
+    static getCelebs() {
+        let celebs;
+        if(localStorage.getItem('celebs') === null) {
+            celebs = [];
+        } else {
+            celebs = JSON.parse(localStorage.getItem('celebs'));
+        }
+        return celebs;
+    }
+
+    static displayCelebs() {
+        const celebs = Store.getCelebs();
+
+        celebs.forEach(celeb => {
+            const ui = new UI;
+
+            ui.addCelebToCart(celeb);
+        });
+    }
+
+    static addCeleb(celeb) {
+        const celebs = Store.getCelebs();
+
+        celebs.push(celeb);
+
+        localStorage.setItem('celebs', JSON.stringify(celebs));
+    }
+
+    static removeCeleb(id) {
+        const celebs = Store.getCelebs();
+
+        celebs.forEach((current, index) => {
+            if(current.id === id) {
+                celebs.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('celebs', JSON.stringify(celebs));
+    }
+}
+
+// DOM Load Event
+document.addEventListener('DOMContentLoaded', Store.displayCelebs);
 
 document.querySelector('.detail-row').addEventListener('click', (e) => {
     const ui = new UI();
@@ -56,6 +109,7 @@ document.querySelector('.detail-row').addEventListener('click', (e) => {
         // Instantiate new celeb
         const celeb = new Celeb(img, title, age, id);
         ui.addCelebToCart(celeb);
+        Store.addCeleb(celeb);
         ui.showAlert('Celebrity Added!', 'success');
 
     }
@@ -67,7 +121,19 @@ document.querySelector('.show-list').addEventListener('click', (e) => {
     document.querySelector('.cart-item').classList.toggle('cart-display');
 
     e.preventDefault();
-})
+});
+
+document.querySelector('#container-tight').addEventListener('click', (e) => {
+    const ui = new UI();
+    if(e.target.classList.contains('delete')) {
+        ui.deleteItem(e.target);
+        ui.showAlert('Celebrity removed from cart', 'success');
+        Store.removeCeleb(e.target.attributes[2].value);
+    } else if(e.target.classList.contains('clear-list')) {
+        ui.clearCart(e.target);
+        ui.showAlert('Cart cleared!', 'success');
+    }
+});
 
 /*
 const cartItem = document.querySelector('.cart-item');
